@@ -1,8 +1,6 @@
-name: Publish Package to npmjs and GitHub Packages
+name: Publish Package to npmjs
 on:
-  release:
-    types:
-      - published
+  workflow_dispatch:
 jobs:
   npmjs:
     runs-on: ubuntu-latest
@@ -12,20 +10,16 @@ jobs:
         with:
           node-version: '20.x'
           registry-url: 'https://registry.npmjs.org'
-      - run: npm run build:publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-  github:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      #- run: npm run build:publish
+      # env:
+      # NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Semantic Release
+        uses: cycjimmy/semantic-release-action@v4
         with:
-          node-version: '20.x'
-          registry-url: 'https://npm.pkg.github.com'
-      - run: npm run build:publish
+          # You can specify specifying version range for the extra plugins if you prefer.
+          extra_plugins: |
+            @semantic-release/changelog@6.0.0
+            @semantic-release/git
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
