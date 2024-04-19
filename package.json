@@ -12,7 +12,8 @@
   },
   "scripts": {
     "build": "NODE_OPTIONS=--openssl-legacy-provider node build",
-    "build:publish": "npm run build && npm publish --access public"
+    "build:publish": "npm run build && npm publish --access public",
+    "lint": "eslint . --ext .ts"
   },
   "dependencies": {
     "execa": "^1.0.0"
@@ -25,6 +26,9 @@
     "@vercel/build-utils": "6.7.2",
     "@vercel/ncc": "0.24.0",
     "fs-extra": "^11.1.1",
-    "typescript": "^5.0.4"
+    "typescript": "^5.0.4",
+    "@typescript-eslint/eslint-plugin": "^6.18.1",
+    "@typescript-eslint/parser": "^6.18.1",
+    "eslint": "^8.56.0"
   }
 }

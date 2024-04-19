@@ -1,0 +1,57 @@
+name: Python CI/CD workflow
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  building:
+    name: Running build
+    runs-on: ubuntu-latest
+    strategy:
+        fail-fast: false
+        matrix:
+          node-version: [20.x]
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Load cached node_modules
+      id: cached-node-dependencies
+      uses: actions/cache@v4
+      with:
+        path: node_modules
+        key: node_modules-${{ runner.os }}-${{ matrix.node-version }}-${{ hashFiles('**/package.json') }}
+    - name: Installing NPM packages
+      run: npm install
+    - name: Building project
+      run: npm run build
+
+  linting:
+    name: Running linting
+    runs-on: ubuntu-latest
+    strategy:
+        fail-fast: false
+        matrix:
+          node-version: [20.x]
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Load cached node_modules
+      id: cached-node-dependencies
+      uses: actions/cache@v4
+      with:
+        path: node_modules
+        key: node_modules-${{ runner.os }}-${{ matrix.node-version }}-${{ hashFiles('**/package.json') }}
+    - name: Installing NPM packages
+      run: npm install
+    - name: Running linter
+      run: npm run lint
+
