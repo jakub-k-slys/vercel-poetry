@@ -44,7 +44,7 @@ export const build = async ({
   meta = {},
   config,
 }: BuildOptions) => {
-  let pythonVersion = getLatestPythonVersion(meta);
+  const pythonVersion = getLatestPythonVersion(meta);
   workPath = await downloadFilesInWorkPath({
     workPath,
     files: originalFiles,
