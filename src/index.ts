@@ -56,7 +56,7 @@ export const build = async ({
   console.log('installing setuptools and poetry')
   await pipInstall(pythonVersion.pipPath, workPath, ["-U", "-vvv", "--force-reinstall",  "urllib3<=1.26.15"]);
   await pipInstall(pythonVersion.pipPath, workPath, ["-U",  "setuptools"]);
-  await pipInstall(pythonVersion.pipPath, workPath, ["-U",  "poetry"]);
+  await pipInstall(pythonVersion.pipPath, workPath, ["-U",  "poetry=1.5.1"]);
 
   const cmdArgs = [
     "-m",
