@@ -1,0 +1,30 @@
+{
+  "name": "@jakub-k-slys/vercel-poetry",
+  "version": "0.0.1",
+  "main": "./dist/index.js",
+  "files": [
+    "dist",
+    "vc_init.py"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jakub-k-slys/vercel-poetry.git"
+  },
+  "scripts": {
+    "build": "NODE_OPTIONS=--openssl-legacy-provider node build",
+    "build:publish": "npm run build && npm publish --access public"
+  },
+  "dependencies": {
+    "execa": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/execa": "^0.9.0",
+    "@types/glob": "^8.1.0",
+    "@types/jest": "27.4.1",
+    "@types/node": "14.18.33",
+    "@vercel/build-utils": "6.7.2",
+    "@vercel/ncc": "0.24.0",
+    "fs-extra": "^11.1.1",
+    "typescript": "^5.0.4"
+  }
+}
