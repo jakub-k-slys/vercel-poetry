@@ -2,8 +2,11 @@
 Vercel is a cloud platform designed to simplify website and web application deployment and scaling, adopting a serverless approach to relieve developers from server management complexities. 
 Renowned for supporting frontend frameworks like **React**, **Vue.js**, and **Next.js**, Vercel also facilitates the deployment of serverless functions written in **Python**, enabling the creation of full-stack applications. 
 To deploy a **Python** project on Vercel, developers need to ensure their codebase includes all necessary **Python** files, a `requirements.txt` listing dependencies, along with configuration files and optional components like static assets and serverless functions. 
+
+## Deploying with Poetry
 However, if a **Python** project utilizes `pyproject.toml` and **Poetry** instead of `requirements.txt`, a few adjustments may be needed to accommodate **Poetry**'s features for dependency declaration, version management, and other tasks.
 
+Here is sample `vercel.json` file that can be used to deploy **Poetry** projects. 
 ```json
 {
   "builds": [
