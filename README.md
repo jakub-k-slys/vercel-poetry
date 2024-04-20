@@ -17,3 +17,7 @@ Here is sample `vercel.json` file that can be used to deploy **Poetry** projects
   ]
 }
 ```
+This **JSON configuration** specifies the builds and routes for a Vercel deployment, replacing the default `@vercel/python` builder with `@jakub-k-slys/vercel-poetry@0.0.5` for enhanced dependency management. 
+It includes a single build configuration where the source is set to `/app/main.py`, utilizing the specified package for handling dependencies. 
+Additionally, it defines a route configuration where any request to the root directory `/` or its subdirectories will be directed to `app/main.py`. 
+This setup ensures that the main **Python** file is appropriately handled for deployment on Vercel using the custom `@jakub-k-slys/vercel-poetry` builder.
