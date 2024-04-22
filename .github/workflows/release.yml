@@ -5,6 +5,8 @@ jobs:
   npmjs:
     runs-on: ubuntu-latest
     steps:
+      - name: Set NPM_TOKEN
+        run: echo "NPM_TOKEN=${{ secrets.NPM_TOKEN }}" >> $GITHUB_ENV
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
