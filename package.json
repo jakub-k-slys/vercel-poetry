@@ -1,8 +1,11 @@
 {
   "name": "@jakub-k-slys/vercel-poetry",
-  "version": "0.0.7",
+  "version": "1.0.0",
   "release": {
-    "branches": ["main"]
+    "branches": ["main"],
+    "plugins": [
+      "@semantic-release/changelog",
+      "@semantic-release/git"],
   },
   "main": "./dist/index.js",
   "files": [
