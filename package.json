@@ -1,6 +1,6 @@
 {
   "name": "@jakub-k-slys/vercel-poetry",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "release": {
     "branches": ["main"]
   },
@@ -13,6 +13,7 @@
     "type": "git",
     "url": "git+https://github.com/jakub-k-slys/vercel-poetry.git"
   },
+  "license": "MIT",
   "scripts": {
     "build": "NODE_OPTIONS=--openssl-legacy-provider node build",
     "build:publish": "npm run build && npm publish --access public",
