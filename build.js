@@ -1,13 +1,18 @@
 #!/usr/bin/env node
-const fs = require('fs-extra');
-const execa = require('execa');
-const { join } = require('path');
+import { remove } from 'fs-extra';
+import { execa } from 'execa';
+import { join } from 'path';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 async function main() {
   const outDir = join(__dirname, 'dist');
 
   // Start fresh
-  await fs.remove(outDir);
+  await remove(outDir);
 
   await execa(
     'ncc',
