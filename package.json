@@ -15,7 +15,7 @@
   },
   "main": "./dist/index.js",
   "files": [
-    "dist",
+    "dist/**",
     "vc_init.py"
   ],
   "repository": {
