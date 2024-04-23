@@ -1,6 +1,6 @@
 {
   "name": "@jakub-k-slys/vercel-poetry",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "release": {
     "branches": [
       "main"
