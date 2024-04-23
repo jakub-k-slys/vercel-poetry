@@ -4,19 +4,36 @@ on:
 jobs:
   npmjs:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version:
+          - 20.x
     steps:
       - uses: actions/checkout@v4
         with:
+          node-version: ${{ matrix.node-version }}
           fetch-depth: 0
           ref: ${{ github.ref_name }}
           token: ${{ secrets.BOT_GITHUB_ACTIONS_2 }}
       - uses: actions/setup-node@v4
+        name: Setup Node.js ${{ matrix.node-version }}
         with:
           node-version: '20.x'
           registry-url: 'https://registry.npmjs.org'
         env:
           GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_ACTIONS_2 }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Load cached node_modules
+        id: cached-node-dependencies
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: node_modules-${{ runner.os }}-${{ matrix.node-version }}-${{ hashFiles('**/package.json') }}
+      - name: Installing NPM packages
+        run: npm install
+      - name: Building project
+        run: npm run build
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v4
         with:
