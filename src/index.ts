@@ -70,7 +70,7 @@ export const build = async ({
     "requirements.txt",
   ];
   // Export requirements.txt file before installation of requirements file
-  await execa.execa(pythonVersion.pythonPath, cmdArgs, { cwd: workPath });
+  await execa(pythonVersion.pythonPath, cmdArgs, { cwd: workPath });
   console.log(`Successfully written requirement.txt file`)
 
   try {
