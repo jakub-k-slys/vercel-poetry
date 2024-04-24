@@ -1,9 +1,10 @@
-import { join, dirname, basename } from 'path';
-import { execa } from 'execa';
-import fs from 'fs';
-import { promisify } from 'util';
-const readFile = promisify(fs.readFile);
-const writeFile = promisify(fs.writeFile);
+const path = require('path');
+const execa = require('execa');
+const fs = require('fs');
+const util = require('util');
+
+const readFile = util.promisify(fs.readFile);
+const writeFile = util.promisify(fs.writeFile);
 import {
   GlobOptions,
   BuildOptions,
@@ -28,8 +29,8 @@ export async function downloadFilesInWorkPath({
   let downloadedFiles = await download(files, workPath, meta);
   if (meta.isDev) {
     // Old versions of the CLI don't assign this property
-    const { devCacheDir = join(workPath, '.now', 'cache') } = meta;
-    const destCache = join(devCacheDir, basename(entrypoint, '.py'));
+    const { devCacheDir = path.join(workPath, '.now', 'cache') } = meta;
+    const destCache = path.join(devCacheDir, path.basename(entrypoint, '.py'));
     await download(downloadedFiles, destCache);
     downloadedFiles = await glob('**', destCache);
     workPath = destCache;
@@ -69,7 +70,7 @@ export const build = async ({
     "requirements.txt",
   ];
   // Export requirements.txt file before installation of requirements file
-  await execa(pythonVersion.pythonPath, cmdArgs, { cwd: workPath });
+  await execa.execa(pythonVersion.pythonPath, cmdArgs, { cwd: workPath });
   console.log(`Successfully written requirement.txt file`)
 
   try {
@@ -81,7 +82,7 @@ export const build = async ({
     // distutils.errors.DistutilsOptionError: must supply either home
     // or prefix/exec-prefix -- not both
     if (meta.isDev) {
-      const setupCfg = join(workPath, 'setup.cfg');
+      const setupCfg = path.join(workPath, 'setup.cfg');
       await writeFile(setupCfg, '[install]\nprefix=\n');
     }
   } catch (err) {
@@ -101,10 +102,10 @@ export const build = async ({
   });
 
   let fsFiles = await glob('**', workPath);
-  const entryDirectory = dirname(entrypoint);
+  const entryDirectory = path.dirname(entrypoint);
 
   fsFiles = await glob('**', workPath);
-  const requirementsTxt = join(entryDirectory, 'requirements.txt');
+  const requirementsTxt = path.join(entryDirectory, 'requirements.txt');
 
   if (fsFiles[requirementsTxt]) {
     debug('Found local "requirements.txt"');
@@ -135,7 +136,7 @@ export const build = async ({
     await execa(pythonVersion.pythonPath, cmdArgs, { cwd: workPath });
   }
 
-  const originalPyPath = join(__dirname, '..', 'vc_init.py');
+  const originalPyPath = path.join(__dirname, '..', 'vc_init.py');
   const originalHandlerPyContents = await readFile(originalPyPath, 'utf8');
   debug('Entrypoint is', entrypoint);
   const moduleName = entrypoint.replace(/\//g, '.').replace(/\.py$/, '');
@@ -151,7 +152,7 @@ export const build = async ({
   // somethig else
   const handlerPyFilename = 'vc__handler__python';
 
-  await writeFile(join(workPath, `${handlerPyFilename}.py`), handlerPyContents);
+  await writeFile(path.join(workPath, `${handlerPyFilename}.py`), handlerPyContents);
 
   const globOptions: GlobOptions = {
     cwd: workPath,

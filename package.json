@@ -1,7 +1,6 @@
 {
   "name": "@jakub-k-slys/vercel-poetry",
   "version": "1.0.5",
-  "type": "module",
   "release": {
     "branches": [
       "main"
@@ -35,7 +34,7 @@
     "lint": "eslint . --ext .ts"
   },
   "dependencies": {
-    "execa": "^8.0.1"
+    "execa": "^5.0.0"
   },
   "devDependencies": {
     "@types/execa": "^0.9.0",
