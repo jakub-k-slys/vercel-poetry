@@ -1,4 +1,4 @@
-import { execa } from 'execa';
+const execa = require('execa');
 import { Meta, debug } from '@vercel/build-utils';
 
 const makeDependencyCheckCode = (dependency: string) => `
