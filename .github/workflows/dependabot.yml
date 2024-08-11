@@ -19,7 +19,7 @@ jobs:
               run: gh pr review --approve "$PR_URL"
               env:
                   PR_URL: '${{ github.event.pull_request.html_url }}'
-                  GH_TOKEN: '${{ secrets.GH_ACCESS_TOKEN }}'
+                  GITHUB_TOKEN: '${{ secrets.GH_ACCESS_TOKEN }}'
     auto-merge:
         runs-on: ubuntu-latest
         if: github.actor == 'dependabot[bot]'
@@ -34,4 +34,4 @@ jobs:
             run: gh pr merge --auto --merge "$PR_URL"
             env:
                 PR_URL: '${{ github.event.pull_request.html_url }}'
-                GH_TOKEN: '${{ secrets.GH_ACCESS_TOKEN }}'
+                GITHUB_TOKEN: '${{ secrets.GH_ACCESS_TOKEN }}'
