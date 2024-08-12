@@ -16,7 +16,7 @@ jobs:
               with:
                   github-token: '${{ secrets.GITHUB_TOKEN }}'
             - name: Set GH_TOKEN
-              run: echo "GH_TOKEN=${{ secrets.GH_ACCESS_TOKEN }}" >> $GITHUB_ENV
+              run: echo "GH_TOKEN=${{ secrets.ALL_TOKEN }}" >> $GITHUB_ENV
             - name: Set PR_URL
               run: echo "PR_URL=${{ github.event.pull_request.html_url }}" >> $GITHUB_ENV
             - name: Approve a PR
