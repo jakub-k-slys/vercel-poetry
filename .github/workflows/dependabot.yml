@@ -15,11 +15,13 @@ jobs:
               uses: dependabot/fetch-metadata@v2
               with:
                   github-token: '${{ secrets.GITHUB_TOKEN }}'
+            - name: Set GH_TOKEN
+              run: echo "GH_TOKEN=${{ secrets.GH_ACCESS_TOKEN }}" >> $GITHUB_ENV
+            - name: Set PR_URL
+              run: echo "PR_URL=${{ github.event.pull_request.html_url }}" >> $GITHUB_ENV
             - name: Approve a PR
               run: gh pr review --approve "$PR_URL"
-              env:
-                  PR_URL: ${{github.event.pull_request.html_url}}
-                  GH_TOKEN: ${{secrets.GH_ACCESS_TOKEN}}
+
     auto-merge:
         runs-on: ubuntu-latest
         if: github.actor == 'dependabot[bot]'
